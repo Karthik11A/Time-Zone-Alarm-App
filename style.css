@@ -259,6 +259,17 @@ body {
     box-shadow: 0 4px 12px rgba(72, 187, 120, 0.3);
 }
 
+.reset-btn {
+    background: #ed8936;
+    color: white;
+}
+
+.reset-btn:hover {
+    background: #dd6b20;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(237, 137, 54, 0.3);
+}
+
 /* Alarm Controls */
 .alarm-controls {
     display: flex;
@@ -360,6 +371,47 @@ body {
     width: 18px;
     height: 18px;
     accent-color: #667eea;
+}
+
+/* File Input Styles */
+.file-input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.file-input {
+    display: none;
+}
+
+.file-input-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: #667eea;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    border: none;
+}
+
+.file-input-label:hover {
+    background: #5a67d8;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.file-name {
+    font-size: 0.9rem;
+    color: #718096;
+    font-style: italic;
+    padding: 5px 0;
 }
 
 /* Modal Styles */
@@ -589,6 +641,28 @@ body {
 @keyframes spin {
     to {
         transform: rotate(360deg);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
     }
 }
 
