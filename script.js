@@ -1,3 +1,6 @@
+// Timezone Converter & Alarm App
+// Using Luxon.js for timezone operations
+
 class TimezoneConverter {
     constructor() {
         this.alarms = [];
