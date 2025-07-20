@@ -5,8 +5,10 @@ class TimezoneConverter {
         this.alarmSound = null;
         this.settings = {
             notifications: false,
-            sound: true
+            sound: true,
+            customRingtone: null
         };
+        this.customAudio = null;
         
         this.init();
     }
@@ -42,6 +44,9 @@ class TimezoneConverter {
             notificationsEnabled: document.getElementById('notificationsEnabled'),
             soundEnabled: document.getElementById('soundEnabled'),
             testAlarmBtn: document.getElementById('testAlarmBtn'),
+            customRingtone: document.getElementById('customRingtone'),
+            ringtoneFileName: document.getElementById('ringtoneFileName'),
+            resetRingtoneBtn: document.getElementById('resetRingtoneBtn'),
             alarmModal: document.getElementById('alarmModal'),
             closeAlarmModal: document.getElementById('closeAlarmModal'),
             alarmMessage: document.getElementById('alarmMessage'),
@@ -156,6 +161,8 @@ class TimezoneConverter {
         this.elements.notificationsEnabled.addEventListener('change', () => this.saveSettings());
         this.elements.soundEnabled.addEventListener('change', () => this.saveSettings());
         this.elements.testAlarmBtn.addEventListener('click', () => this.testAlarm());
+        this.elements.customRingtone.addEventListener('change', (e) => this.handleCustomRingtone(e));
+        this.elements.resetRingtoneBtn.addEventListener('click', () => this.resetRingtone());
 
         // Modal events
         this.elements.closeAlarmModal.addEventListener('click', () => this.closeAlarmModal());
@@ -451,6 +458,21 @@ class TimezoneConverter {
     }
 
     playAlarmSound() {
+        // Use custom audio if available
+        if (this.customAudio) {
+            this.customAudio.currentTime = 0;
+            this.customAudio.loop = true;
+            this.customAudio.play().catch(e => {
+                console.warn('Could not play custom audio:', e);
+                this.playDefaultBeep();
+            });
+            return;
+        }
+
+        this.playDefaultBeep();
+    }
+
+    playDefaultBeep() {
         if (!this.audioContext) return;
 
         const oscillator = this.audioContext.createOscillator();
@@ -499,6 +521,11 @@ class TimezoneConverter {
             clearInterval(this.alarmSoundInterval);
             this.alarmSoundInterval = null;
         }
+        
+        if (this.customAudio) {
+            this.customAudio.pause();
+            this.customAudio.currentTime = 0;
+        }
     }
 
     testAlarm() {
@@ -513,6 +540,50 @@ class TimezoneConverter {
                 icon: 'alarm.svg'
             });
         }
+    }
+
+    handleCustomRingtone(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        // Validate file type
+        if (!file.type.startsWith('audio/')) {
+            this.showNotification('Please select a valid audio file', 'error');
+            return;
+        }
+
+        // Create URL for the audio file
+        const audioUrl = URL.createObjectURL(file);
+        
+        // Create audio element
+        this.customAudio = new Audio(audioUrl);
+        this.customAudio.volume = 0.7;
+        
+        // Test if the audio can be loaded
+        this.customAudio.addEventListener('loadeddata', () => {
+            this.settings.customRingtone = file.name;
+            this.elements.ringtoneFileName.textContent = file.name;
+            this.elements.resetRingtoneBtn.style.display = 'inline-flex';
+            this.saveSettings();
+            this.showNotification('Custom ringtone loaded successfully!', 'success');
+        });
+
+        this.customAudio.addEventListener('error', () => {
+            this.showNotification('Could not load audio file. Please try a different file.', 'error');
+            this.resetRingtone();
+        });
+
+        this.customAudio.load();
+    }
+
+    resetRingtone() {
+        this.customAudio = null;
+        this.settings.customRingtone = null;
+        this.elements.customRingtone.value = '';
+        this.elements.ringtoneFileName.textContent = 'Default beep sound';
+        this.elements.resetRingtoneBtn.style.display = 'none';
+        this.saveSettings();
+        this.showNotification('Reset to default alarm sound', 'info');
     }
 
     async requestNotificationPermission() {
@@ -573,6 +644,10 @@ class TimezoneConverter {
             }
             if (this.elements.soundEnabled) {
                 this.elements.soundEnabled.checked = this.settings.sound;
+            }
+            if (this.settings.customRingtone) {
+                this.elements.ringtoneFileName.textContent = this.settings.customRingtone;
+                this.elements.resetRingtoneBtn.style.display = 'inline-flex';
             }
         }, 100);
     }
