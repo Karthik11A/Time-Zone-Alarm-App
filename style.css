@@ -1,0 +1,620 @@
+/* CSS Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header Styles */
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+    color: white;
+}
+
+.header-content {
+    animation: fadeInDown 0.8s ease-out;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.logo-icon {
+    width: 48px;
+    height: 48px;
+    filter: invert(1);
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-top: 8px;
+}
+
+/* Main Content */
+.main-content {
+    display: grid;
+    gap: 30px;
+    grid-template-columns: 1fr;
+}
+
+/* Card Styles */
+.current-time-card,
+.conversion-card,
+.alarm-card,
+.settings-card {
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.current-time-card:hover,
+.conversion-card:hover,
+.alarm-card:hover,
+.settings-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Current Time Section */
+.current-time-section h2,
+.conversion-card h2,
+.alarm-card h2,
+.settings-card h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #2d3748;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.section-icon {
+    width: 24px;
+    height: 24px;
+}
+
+.time-display {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #667eea;
+    text-align: center;
+    margin-bottom: 10px;
+    font-family: 'Courier New', monospace;
+}
+
+.timezone-display {
+    font-size: 1.2rem;
+    color: #718096;
+    text-align: center;
+}
+
+/* Input Styles */
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #4a5568;
+}
+
+.timezone-select,
+.date-input,
+.time-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background: white;
+}
+
+.timezone-select:focus,
+.date-input:focus,
+.time-input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* Conversion Arrow */
+.conversion-arrow {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.conversion-arrow i {
+    font-size: 2rem;
+    color: #667eea;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+/* Result Section */
+.result-section {
+    margin-top: 25px;
+}
+
+.result-card {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    border-radius: 12px;
+    padding: 25px;
+    border: 2px dashed #cbd5e0;
+    transition: all 0.3s ease;
+}
+
+.result-card.has-result {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: 2px solid #667eea;
+    color: white;
+}
+
+.result-time {
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 8px;
+    font-family: 'Courier New', monospace;
+}
+
+.result-timezone {
+    font-size: 1.1rem;
+    text-align: center;
+    opacity: 0.8;
+}
+
+/* Button Styles */
+.alarm-btn,
+.test-btn,
+.modal-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+}
+
+.alarm-btn.primary,
+.modal-btn.primary {
+    background: #667eea;
+    color: white;
+}
+
+.alarm-btn.primary:hover,
+.modal-btn.primary:hover {
+    background: #5a67d8;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.alarm-btn.secondary,
+.modal-btn.secondary {
+    background: #e2e8f0;
+    color: #4a5568;
+}
+
+.alarm-btn.secondary:hover,
+.modal-btn.secondary:hover {
+    background: #cbd5e0;
+    transform: translateY(-2px);
+}
+
+.test-btn {
+    background: #48bb78;
+    color: white;
+}
+
+.test-btn:hover {
+    background: #38a169;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(72, 187, 120, 0.3);
+}
+
+/* Alarm Controls */
+.alarm-controls {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.alarm-status {
+    background: #f0fff4;
+    border: 2px solid #48bb78;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.alarm-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    color: #22543d;
+    font-weight: 600;
+}
+
+.countdown {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #48bb78;
+    text-align: center;
+    font-family: 'Courier New', monospace;
+}
+
+/* Active Alarms */
+.active-alarms {
+    margin-top: 25px;
+}
+
+.active-alarms h3 {
+    color: #4a5568;
+    margin-bottom: 15px;
+}
+
+.alarm-item {
+    background: #f7fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.alarm-details {
+    flex: 1;
+}
+
+.alarm-time {
+    font-weight: 600;
+    color: #2d3748;
+    font-family: 'Courier New', monospace;
+}
+
+.alarm-timezone {
+    font-size: 0.9rem;
+    color: #718096;
+}
+
+.remove-alarm {
+    background: #fed7d7;
+    color: #c53030;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+
+.remove-alarm:hover {
+    background: #feb2b2;
+}
+
+/* Settings */
+.setting-item {
+    margin-bottom: 20px;
+}
+
+.setting-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.setting-checkbox {
+    width: 18px;
+    height: 18px;
+    accent-color: #667eea;
+}
+
+/* Modal Styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 16px;
+    padding: 0;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideIn 0.3s ease-out;
+}
+
+.modal-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px;
+    border-radius: 16px 16px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.modal-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.modal-body {
+    padding: 25px;
+}
+
+.alarm-message {
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 25px;
+    color: #2d3748;
+    line-height: 1.5;
+}
+
+.alarm-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px;
+    color: white;
+    opacity: 0.8;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+    
+    .header h1 {
+        font-size: 2rem;
+    }
+    
+    .logo {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .current-time-card,
+    .conversion-card,
+    .alarm-card,
+    .settings-card {
+        padding: 20px;
+    }
+    
+    .time-display {
+        font-size: 2rem;
+    }
+    
+    .result-time {
+        font-size: 1.5rem;
+    }
+    
+    .alarm-controls {
+        flex-direction: column;
+    }
+    
+    .alarm-btn,
+    .test-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .alarm-actions {
+        flex-direction: column;
+    }
+    
+    .modal-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .alarm-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .subtitle {
+        font-size: 1rem;
+    }
+    
+    .time-display {
+        font-size: 1.8rem;
+    }
+    
+    .conversion-arrow i {
+        font-size: 1.5rem;
+    }
+    
+    .modal-content {
+        width: 95%;
+    }
+}
+
+/* Loading States */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #667eea;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .current-time-card,
+    .conversion-card,
+    .alarm-card,
+    .settings-card {
+        border: 2px solid #000;
+    }
+    
+    .timezone-select,
+    .date-input,
+    .time-input {
+        border: 2px solid #000;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

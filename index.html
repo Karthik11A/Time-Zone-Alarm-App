@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timezone Converter & Alarm</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/luxon@3.4.4/build/global/luxon.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="clock.svg" alt="Clock" class="logo-icon">
+                    <h1>TimeZone Converter</h1>
+                </div>
+                <p class="subtitle">Convert time across timezones and set alarms</p>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <!-- Current Time Display -->
+            <section class="current-time-section">
+                <div class="current-time-card">
+                    <h2>Current Time</h2>
+                    <div class="time-display" id="currentTime"></div>
+                    <div class="timezone-display" id="currentTimezone"></div>
+                </div>
+            </section>
+
+            <!-- Timezone Conversion -->
+            <section class="conversion-section">
+                <div class="conversion-card">
+                    <h2>Timezone Conversion</h2>
+                    
+                    <div class="input-group">
+                        <label for="sourceTimezone">From Timezone:</label>
+                        <select id="sourceTimezone" class="timezone-select">
+                            <option value="">Select timezone...</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="inputDate">Date:</label>
+                        <input type="date" id="inputDate" class="date-input">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="inputTime">Time:</label>
+                        <input type="time" id="inputTime" class="time-input">
+                    </div>
+
+                    <div class="conversion-arrow">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="destinationTimezone">To Timezone:</label>
+                        <select id="destinationTimezone" class="timezone-select">
+                            <option value="">Select timezone...</option>
+                        </select>
+                    </div>
+
+                    <div class="result-section">
+                        <div class="result-card" id="conversionResult">
+                            <div class="result-content">
+                                <div class="result-time">Select timezones and time to convert</div>
+                                <div class="result-timezone"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Alarm Section -->
+            <section class="alarm-section">
+                <div class="alarm-card">
+                    <h2>
+                        <img src="alarm.svg" alt="Alarm" class="section-icon">
+                        Set Alarm
+                    </h2>
+                    
+                    <div class="alarm-controls">
+                        <button id="setAlarmBtn" class="alarm-btn primary">
+                            <i class="fas fa-bell"></i>
+                            Set Alarm for Converted Time
+                        </button>
+                        
+                        <button id="clearAlarmBtn" class="alarm-btn secondary" style="display: none;">
+                            <i class="fas fa-bell-slash"></i>
+                            Clear Alarm
+                        </button>
+                    </div>
+
+                    <div class="alarm-status" id="alarmStatus" style="display: none;">
+                        <div class="alarm-info">
+                            <i class="fas fa-clock"></i>
+                            <span class="alarm-text"></span>
+                        </div>
+                        <div class="countdown" id="countdown"></div>
+                    </div>
+
+                    <div class="active-alarms" id="activeAlarms" style="display: none;">
+                        <h3>Active Alarms</h3>
+                        <div class="alarm-list" id="alarmList"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section class="settings-section">
+                <div class="settings-card">
+                    <h2>Settings</h2>
+                    
+                    <div class="setting-item">
+                        <label class="setting-label">
+                            <input type="checkbox" id="notificationsEnabled" class="setting-checkbox">
+                            <span class="setting-text">Enable browser notifications</span>
+                        </label>
+                    </div>
+
+                    <div class="setting-item">
+                        <label class="setting-label">
+                            <input type="checkbox" id="soundEnabled" class="setting-checkbox" checked>
+                            <span class="setting-text">Enable alarm sound</span>
+                        </label>
+                    </div>
+
+                    <div class="setting-item">
+                        <button id="testAlarmBtn" class="test-btn">
+                            <i class="fas fa-volume-up"></i>
+                            Test Alarm Sound
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2025 Timezone Converter. Made with ❤️ using Luxon.js</p>
+        </footer>
+    </div>
+
+    <!-- Alarm Modal -->
+    <div class="modal" id="alarmModal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>⏰ Alarm!</h2>
+                <button class="modal-close" id="closeAlarmModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="alarm-message" id="alarmMessage"></div>
+                <div class="alarm-actions">
+                    <button id="snoozeBtn" class="modal-btn secondary">
+                        <i class="fas fa-clock"></i>
+                        Snooze (5 min)
+                    </button>
+                    <button id="dismissBtn" class="modal-btn primary">
+                        <i class="fas fa-check"></i>
+                        Dismiss
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
