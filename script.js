@@ -1,6 +1,3 @@
-// Timezone Converter & Alarm App
-// Using Luxon.js for timezone operations
-
 class TimezoneConverter {
     constructor() {
         this.alarms = [];
@@ -79,7 +76,7 @@ class TimezoneConverter {
             'Asia/Hong_Kong',
             'Asia/Singapore',
             'Asia/Seoul',
-            'Asia/Mumbai',
+            'IST',
             'Asia/Dubai',
             'Asia/Jakarta',
             'Asia/Bangkok',
@@ -93,12 +90,22 @@ class TimezoneConverter {
             'Africa/Lagos'
         ];
 
+        // Filter out invalid timezones
+        const validTimezones = timezones.filter(tz => {
+            try {
+                const dt = luxon.DateTime.local().setZone(tz);
+                return dt.isValid;
+            } catch {
+                return false;
+            }
+        });
+
         // Sort timezones alphabetically
-        timezones.sort();
+        validTimezones.sort();
 
         // Populate both select elements
         [this.elements.sourceTimezone, this.elements.destinationTimezone].forEach(select => {
-            timezones.forEach(tz => {
+            validTimezones.forEach(tz => {
                 const option = document.createElement('option');
                 option.value = tz;
                 option.textContent = this.formatTimezoneLabel(tz);
@@ -116,10 +123,20 @@ class TimezoneConverter {
         // Format timezone for display
         try {
             const dt = luxon.DateTime.local().setZone(timezone);
+            if (!dt.isValid) {
+                return timezone;
+            }
             const offset = dt.toFormat('ZZ');
-            const city = timezone.split('/').pop().replace(/_/g, ' ');
+            
+            // Special cases for abbreviations
+            if (timezone === 'IST') {
+                return `Indian Standard Time (${offset})`;
+            }
+            
+            let city = timezone.split('/').pop().replace(/_/g, ' ');
             return `${city} (${offset})`;
-        } catch {
+        } catch (error) {
+            console.warn(`Invalid timezone: ${timezone}`, error);
             return timezone;
         }
     }
